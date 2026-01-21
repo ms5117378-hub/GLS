@@ -22,12 +22,17 @@
             --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --max-width: 1200px;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
@@ -48,7 +53,7 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: var(--max-width);
             margin: 0 auto;
             padding: 0 24px;
         }
@@ -230,7 +235,7 @@
             z-index: 0;
         }
         
-        /* Subtle geometric pattern for hero background */
+        /* Increased opacity to 5-7% for better visibility */
         .hero-bg::before {
             content: '';
             position: absolute;
@@ -239,8 +244,8 @@
             width: 100%;
             height: 100%;
             background-image: 
-                radial-gradient(circle at 25% 25%, rgba(201, 162, 77, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(201, 162, 77, 0.02) 0%, transparent 50%);
+                radial-gradient(circle at 25% 25%, rgba(201, 162, 77, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(201, 162, 77, 0.03) 0%, transparent 50%);
         }
         
         .hero-bg::after {
@@ -251,10 +256,10 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(201, 162, 77, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(201, 162, 77, 0.03) 1px, transparent 1px);
+                linear-gradient(rgba(201, 162, 77, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201, 162, 77, 0.05) 1px, transparent 1px);
             background-size: 80px 80px;
-            opacity: 0.5;
+            opacity: 0.7;
         }
         
         .hero-content {
@@ -318,7 +323,7 @@
         /* Hero Options */
         .hero-option {
             display: none;
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.3s ease-in-out;
         }
         
         .hero-option.active {
@@ -326,40 +331,53 @@
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
+        /* More minimal option buttons */
         .hero-toggle {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 30px;
             margin-top: 50px;
         }
         
         .hero-toggle-btn {
-            padding: 8px 20px;
-            background-color: transparent;
-            border: 1px solid #E5E7EB;
+            background: none;
+            border: none;
             color: var(--secondary-text);
-            border-radius: 30px;
-            font-size: 13px;
+            border-radius: 0;
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 500;
             letter-spacing: 0.02em;
+            padding-bottom: 5px;
+            position: relative;
+        }
+        
+        .hero-toggle-btn::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent-gold);
+            transition: width 0.3s ease;
         }
         
         .hero-toggle-btn.active {
-            background-color: var(--accent-gold);
-            border-color: var(--accent-gold);
-            color: white;
-            box-shadow: 0 4px 14px rgba(201, 162, 77, 0.4);
+            color: var(--accent-gold);
+        }
+        
+        .hero-toggle-btn.active::after {
+            width: 100%;
         }
         
         .hero-toggle-btn:hover:not(.active) {
-            background-color: #F9FAFB;
-            border-color: #D1D5DB;
+            color: var(--primary-text);
         }
         
         /* Stats Bar */
@@ -1035,19 +1053,19 @@
             <!-- Option A -->
             <div class="hero-option active" id="hero-option-a">
                 <h1>We Run Amazon For Brands That Want Nothing To Do With Amazon.</h1>
-                <p>See the repeatable system we've used to scale 16 brands - including one from $40k to $280k/month.</p>
+                <p>See repeatable system we've used to scale 16 brands - including one from $40k to $280k/month.</p>
             </div>
             
             <!-- Option B -->
             <div class="hero-option" id="hero-option-b">
                 <h1>We Run Amazon For Brands That Hate Running Amazon.</h1>
-                <p>See the repeatable system we've used to scale 16 brands - including one from $40k to $280k/month.</p>
+                <p>See repeatable system we've used to scale 16 brands - including one from $40k to $280k/month.</p>
             </div>
             
             <!-- Option C -->
             <div class="hero-option" id="hero-option-c">
                 <h1>Unauthorized Sellers. Pricing Chaos. Revenue Leaks. We Fix All of It.</h1>
-                <p>See the repeatable system we've used to scale 16 brands - including one from $40k to $280k/month.</p>
+                <p>See repeatable system we've used to scale 16 brands - including one from $40k to $280k/month.</p>
             </div>
             
             <div class="hero-cta">
@@ -1055,6 +1073,7 @@
                 <a href="#proof" class="secondary-link">See How We Did It <i class="material-icons">arrow_forward</i></a>
             </div>
             
+            <!-- More minimal option buttons with gold underline for active state -->
             <div class="hero-toggle">
                 <button class="hero-toggle-btn active" onclick="showHeroOption('a')">Option A</button>
                 <button class="hero-toggle-btn" onclick="showHeroOption('b')">Option B</button>
@@ -1089,7 +1108,7 @@
             <div class="section-label">THE PROBLEM</div>
             <h2>Your Amazon Channel is Bleeding Money. Here's Why.</h2>
             <div class="problem-content">
-                <p>You built a great brand. But Amazon? It's chaos. Unauthorized sellers are undercutting your pricing. You're losing the buy box on your own products. Your listings are a mess. And every month, you're leaving tens of thousands on the table.</p>
+                <p>You built a great brand. But Amazon? It's chaos. Unauthorized sellers are undercutting your pricing. You're losing buy box on your own products. Your listings are a mess. And every month, you're leaving tens of thousands on the table.</p>
                 
                 <div class="problem-list">
                     <div class="problem-item">
@@ -1098,7 +1117,7 @@
                     </div>
                     <div class="problem-item">
                         <i class="material-icons">close</i>
-                        <span>Losing the buy box on your own products</span>
+                        <span>Losing buy box on your own products</span>
                     </div>
                     <div class="problem-item">
                         <i class="material-icons">close</i>
@@ -1136,7 +1155,7 @@
                         <i class="material-icons">manage_accounts</i>
                     </div>
                     <h3>Brand Management</h3>
-                    <p>You stay the seller of record. We take over listings, SEO, A+ content, PPC, catalog cleanup, and MAP enforcement. You keep control. We do the work.</p>
+                    <p>You stay as seller of record. We take over listings, SEO, A+ content, PPC, catalog cleanup, and MAP enforcement. You keep control. We do the work.</p>
                     <div class="service-price">10-15% of Amazon Revenue</div>
                     <div class="service-best-for">Best for: Brands doing $50k+/month who want expert execution without giving up their account.</div>
                 </div>
@@ -1403,16 +1422,6 @@
             if (e.target !== sliderHandle) {
                 updateSliderPosition(e.clientX);
             }
-        });
-        
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
         });
         
         // Add scroll effect to navigation
